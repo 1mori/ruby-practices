@@ -14,4 +14,4 @@ cmd_params = {}
 opt.on('-y [VAL]') {|v| v.to_i}
 opt.on('-m [VAL]') {|v| v.to_i}
 
-opt.parse!(ARGV, into: command_params)
+opt.parse!(ARGV, into: cmd_params)
