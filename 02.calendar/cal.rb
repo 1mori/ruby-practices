@@ -24,7 +24,7 @@ unless cmd_params[:y] == nil
   date_params[:year] = cmd_params[:y]
 end
 unless cmd_params[:m] == nil
-  if cmd_params[:m] < 1 || 12 < cmd_params[:y] # 正しい月が入力されているか確認する
+  if cmd_params[:m] < 1 || 12 < cmd_params[:m] # 正しい月が入力されているか確認する
     raise InvalidRangeError, "正しい月を指定してください。"
   end
   date_params[:month] = cmd_params[:m]
