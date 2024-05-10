@@ -29,3 +29,31 @@ unless cmd_params[:m] == nil
   end
   date_params[:month] = cmd_params[:m]
 end
+
+# 指定された月の1日目の曜日と日数を計算する
+first_date = Date.new(date_params[:year], date_params[:month], 1)
+last_date = Date.new(date_params[:year], date_params[:month], -1)
+
+# カレンダーの表示部分を作成する
+# x月 xxxxの出力、曜日の出力
+puts "      #{date_params[:month]}月 #{date_params[:year]}"
+puts "日 月 火 水 木 金 土"
+
+# カレンダー部分の出力
+# 余白部分の空白を予め出力しておく
+dow_num = first_date.wday
+dow_num.times { print "   " }
+
+# 日にちの出力
+(first_date.day..last_date.day).each do |num|
+  print num.to_s.rjust(2)
+  if dow_num == 6
+    print "\n"
+    dow_num = 0
+  elsif num != last_date.day
+    print " "
+    dow_num += 1
+  else
+    print "\n"
+  end
+end
