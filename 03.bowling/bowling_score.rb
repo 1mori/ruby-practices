@@ -31,7 +31,16 @@ end
 # 得点加算部分の実装
 score_list.each do |score_s|
   score_i = convert_str2int(score_s) # str型の数値をint型に変換する
-  if score_s == 'X' # ストライクだった時の処理
+
+  # 10フレーム目の処理を別で実装
+  if flame[0] == 10
+    add_score, strike_spare_flag = cal_addscore(score_i, strike_spare_flag) # 前フレームでの加算得点処理
+    total += add_score + score_i # 得点を加算
+    next
+  end
+
+  # ストライクだった時の処理
+  if score_s == 'X'
     # 前回がストライク・スペアの確認をする
     add_score, strike_spare_flag = cal_addscore(score_i, strike_spare_flag)
     total += add_score + score_i
@@ -44,16 +53,18 @@ score_list.each do |score_s|
   add_score, strike_spare_flag = cal_addscore(score_i, strike_spare_flag)
 
   # 投球数、フレーム数の更新
-  if flame[1] == 1
+  if flame[1] == 1 # 1投目
     flame[1] = 2
     pre_score = score_i
-  else
+  else # 2投目
     strike_spare_flag = 1 if pre_score + score_i == 10 # スペアになるかを判定し、該当する場合はフラグを1にする
     flame[0] += 1
     flame[1] = 1
     pre_score = 0
   end
-  total += add_score + score_i # 得点を加算
+
+  # 得点を加算
+  total += add_score + score_i
 end
 
 puts total
