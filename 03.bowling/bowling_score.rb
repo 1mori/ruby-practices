@@ -32,7 +32,7 @@ def cal_addscore(score, flag, running_strike)
 end
 
 # 得点加算部分の実装
-score_list.each do |score_s|
+score_list.each do |score_s| # rubocop:disable Metrics/BlockLength
   score_i = convert_str2int(score_s) # str型の数値をint型に変換する
   # 前フレームがスペアないしストライクかどうかを判定し、いずれかに該当する場合は得点を加算する
   add_score, strike_spare_flag, running_strike = cal_addscore(score_i, strike_spare_flag, running_strike)
