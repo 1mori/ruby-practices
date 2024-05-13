@@ -6,6 +6,8 @@ total = 0 # 合計得点を入力する変数
 add_score = 0 # ストライク・スペアの際の加算得点を記録する変数
 flame = [1, 1] # フレーム、何投目かを管理する変数
 pre_score = 0 # 同フレームの前回のスコアを記録する変数
+pre_strike = false # 前フレームがストライクかの判定を行う
+running_strike = false # 過去2フレームがどちらもストライクかを判定する変数
 strike_spare_flag = 0 # 前フレームが通常、スペア、ストライクのいずれかを判定する変数
 
 # スコアをint型に変換する
@@ -18,21 +20,22 @@ def convert_str2int(score_s)
 end
 
 # ストライク・スペアの時の加算得点を計算するプログラム
-def cal_addscore(score, flag)
+def cal_addscore(score, flag, running_strike)
   if flag > 0 # rubocop:disable Style/NumericPredicate
     add_score = score # 得点を加算
     flag -= 1 # フラグの数を減らす
+    add_score += score if running_strike == true
   else
     add_score = 0
   end
-  return add_score, flag # rubocop:disable Style/RedundantReturn
+  return add_score, flag, false # rubocop:disable Style/RedundantReturn
 end
 
 # 得点加算部分の実装
 score_list.each do |score_s|
   score_i = convert_str2int(score_s) # str型の数値をint型に変換する
   # 前フレームがスペアないしストライクかどうかを判定し、いずれかに該当する場合は得点を加算する
-  add_score, strike_spare_flag = cal_addscore(score_i, strike_spare_flag)
+  add_score, strike_spare_flag, running_strike = cal_addscore(score_i, strike_spare_flag, running_strike)
 
   # 10フレーム目の処理を別で実装
   if flame[0] == 10
@@ -46,7 +49,11 @@ score_list.each do |score_s|
     total += add_score + score_i
     flame[0] += 1 # フレームを更新
     strike_spare_flag = 2
+    running_strike = true if pre_strike == true
+    pre_strike = true
     next
+  else
+    pre_strike = false
   end
 
   # 投球数、フレーム数の更新
