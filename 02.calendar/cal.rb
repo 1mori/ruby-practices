@@ -42,7 +42,7 @@ first_date.wday.times { print " " * 3 }
 
 # 日にちの出力
 (first_date..last_date).each do |current_date|
-  if current_date.year == today_date.year && current_date.month == today_date.month && current_date.day == today_date.day
+  if current_date == today_date
     print "\e[7m#{current_date.day.to_s.rjust(2)}\e[0m" # 今日の日付の色を反転
   else
     print current_date.day.to_s.rjust(2)
