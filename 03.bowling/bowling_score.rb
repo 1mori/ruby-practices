@@ -27,22 +27,18 @@ score_list.each_with_index do |score, ball_number|
   # 得点を合計得点に加算
   total += add_score + score
 
-  next if flame[0] == 10
-
-  # ストライクだった時の処理
-  if score == 10
-    flame[0] += 1 # フレームを更新
-    strike_spare_flag = 2
-    next
-  end
-
   # 投球数、フレーム数の更新
-  if flame[1] == 1 # 1投目
-    flame[1] = 2
-  else # 2投目
-    strike_spare_flag = 1 if score_list[ball_number - 1] + score == 10 # スペアになるかを判定し、該当する場合はフラグを1にする
-    flame[0] += 1
-    flame[1] = 1
+  if flame[0] == 10 # 10フレーム目はそれ以上フレーム数が更新されないので、個別に投球数を進める
+    flame[1] += 1
+  else 
+    if score == 10 # ストライク処理
+      flame[0] += 1
+    elsif flame[1] == 1
+      flame[1] = 2
+    else
+      flame[0] += 1
+      flame[1] = 1
+    end
   end
 end
 
