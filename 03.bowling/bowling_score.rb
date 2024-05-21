@@ -2,7 +2,6 @@
 
 total = 0
 flame = [1, 1]
-pre_strike = false
 running_strike = false
 strike_spare_flag = 0
 
@@ -35,11 +34,8 @@ score_list.each_with_index do |score, ball_number|
   if score == 10
     flame[0] += 1 # フレームを更新
     strike_spare_flag = 2
-    running_strike = true if pre_strike
-    pre_strike = true
+    running_strike = true if score_list[ball_number - 1] == 10
     next
-  else
-    pre_strike = false
   end
 
   # 投球数、フレーム数の更新
