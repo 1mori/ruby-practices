@@ -30,15 +30,13 @@ score_list.each_with_index do |score, ball_number|
   # 投球数、フレーム数の更新
   if flame[0] == 10 # 10フレーム目はそれ以上フレーム数が更新されないので、個別に投球数を進める
     flame[1] += 1
-  else 
-    if score == 10 # ストライク処理
-      flame[0] += 1
-    elsif flame[1] == 1
-      flame[1] = 2
-    else
-      flame[0] += 1
-      flame[1] = 1
-    end
+  elsif flame[1] == 1 && score == 10
+    flame[0] += 1 # ストライク処理
+  elsif flame[1] == 1
+    flame[1] = 2
+  else
+    flame[0] += 1
+    flame[1] = 1
   end
 end
 
