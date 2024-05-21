@@ -30,7 +30,6 @@ score_list.each_with_index do |score, ball_number|
   # 得点を合計得点に加算
   total += add_score + score
 
-  # 10フレーム目の処理を別で実装
   next if flame[0] == 10
 
   # ストライクだった時の処理
