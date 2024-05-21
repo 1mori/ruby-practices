@@ -15,11 +15,11 @@ def cal_addscore(score, flag, running_strike)
   if flag > 0 # rubocop:disable Style/NumericPredicate
     add_score = score # 得点を加算
     flag -= 1 # フラグの数を減らす
-    add_score += score if running_strike == true
+    add_score += score if running_strike
   else
     add_score = 0
   end
-  return add_score, flag, false # rubocop:disable Style/RedundantReturn
+  [add_score, flag, false]
 end
 
 # 得点加算部分の実装
