@@ -4,7 +4,6 @@ require 'date'
 require 'optparse'
 
 today_date = Date.today
-date_params = { year: today_date.year, month: today_date.month, day: today_date.day }
 
 opt = OptionParser.new
 cmd_params = {}
@@ -13,7 +12,7 @@ opt.on('-y [VAL]') {|v| v.to_i}
 opt.on('-m [VAL]') {|v| v.to_i}
 opt.parse!(ARGV, into: cmd_params)
 
-target_params = { year: date_params[:year], month: date_params[:month] }
+target_params = { year: today_date.year, month: today_date.month }
 
 if cmd_params[:y] # 年が指定されているとき
   if cmd_params[:y] < 1970 || 2100 < cmd_params[:y]
@@ -44,7 +43,7 @@ day_of_week_index.times { print " " * 3 }
 
 # 日にちの出力
 (first_date..last_date).each do |current_date|
-  if current_date.year == date_params[:year] && current_date.month == date_params[:month] && current_date.day == date_params[:day]
+  if current_date.year == today_date.year && current_date.month == today_date.month && current_date.day == today_date.day
     print "\e[7m#{current_date.day.to_s.rjust(2)}\e[0m" # 今日の日付の色を反転
   else
     print current_date.day.to_s.rjust(2)
