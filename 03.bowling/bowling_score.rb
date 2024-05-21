@@ -1,14 +1,14 @@
 #!/usr/bin/env ruby # rubocop:disable Style/FrozenStringLiteralComment
 
 score_list = ARGV[0].split(',')
-
-total = 0 # 合計得点を入力する変数
-add_score = 0 # ストライク・スペアの際の加算得点を記録する変数
-flame = [1, 1] # フレーム、何投目かを管理する変数
-pre_score = 0 # 同フレームの前回のスコアを記録する変数
-pre_strike = false # 前フレームがストライクかの判定を行う
-running_strike = false # 過去2フレームがどちらもストライクかを判定する変数
-strike_spare_flag = 0 # 前フレームが通常、スペア、ストライクのいずれかを判定する変数
+p score_list
+total = 0
+add_score = 0
+flame = [1, 1]
+pre_score = 0
+pre_strike = false
+running_strike = false
+strike_spare_flag = 0
 
 # スコアをint型に変換する
 def convert_str2int(score_s)
