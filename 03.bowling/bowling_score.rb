@@ -9,7 +9,7 @@ score_list = score_list.map { |score| score == 'X' ? 10 : score.to_i }
 # ストライク・スペアの時の加算得点を計算するプログラム
 def calculate_add_score(flame, score, score_list, ball_number)
   add_score = 0
-  return 0 if flame[0] == 10
+  return add_score if flame[0] == 10
 
   add_score += score_list[ball_number + 1] + score_list[ball_number + 2] if flame[1] == 1 && score == 10 # ストライク判定
   add_score += score_list[ball_number + 1] if flame[1] == 2 && score_list[ball_number - 1] + score == 10 # スペア判定
