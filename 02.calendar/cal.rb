@@ -38,8 +38,7 @@ puts "      #{target_params[:month]}月 #{target_params[:year]}"
 puts "日 月 火 水 木 金 土"
 
 # 1日目までの左上の空白を出力
-day_of_week_index = first_date.wday
-day_of_week_index.times { print " " * 3 }
+first_date.wday.times { print " " * 3 }
 
 # 日にちの出力
 (first_date..last_date).each do |current_date|
@@ -48,12 +47,10 @@ day_of_week_index.times { print " " * 3 }
   else
     print current_date.day.to_s.rjust(2)
   end
-  if day_of_week_index == 6 # 曜日リセット
+  if current_date.saturday? # 曜日リセット
     print "\n"
-    day_of_week_index = 0
   else
     print " "
-    day_of_week_index += 1
   end
 end
-print "\n" unless day_of_week_index == 0 # 最後の行の改行
+print "\n" unless last_date.saturday? # 最後の行の改行
