@@ -1,7 +1,7 @@
 #!/usr/bin/env ruby # rubocop:disable Style/FrozenStringLiteralComment
 
 score_list = ARGV[0].split(',')
-p score_list
+
 total = 0
 add_score = 0
 flame = [1, 1]
