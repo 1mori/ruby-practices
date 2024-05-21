@@ -3,7 +3,6 @@
 score_list = ARGV[0].split(',')
 
 total = 0
-add_score = 0
 flame = [1, 1]
 pre_score = 0
 pre_strike = false
