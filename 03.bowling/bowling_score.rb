@@ -2,7 +2,6 @@
 
 total = 0
 flame = [1, 1]
-pre_score = 0
 pre_strike = false
 running_strike = false
 strike_spare_flag = 0
@@ -46,12 +45,10 @@ score_list.each_with_index do |score, ball_number|
   # 投球数、フレーム数の更新
   if flame[1] == 1 # 1投目
     flame[1] = 2
-    pre_score = score_i
   else # 2投目
-    strike_spare_flag = 1 if pre_score + score_i == 10 # スペアになるかを判定し、該当する場合はフラグを1にする
+    strike_spare_flag = 1 if score_list[ball_number - 1] + score == 10 # スペアになるかを判定し、該当する場合はフラグを1にする
     flame[0] += 1
     flame[1] = 1
-    pre_score = 0
   end
 end
 
