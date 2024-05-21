@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby # rubocop:disable Style/FrozenStringLiteralComment
 
-score_list = ARGV[0].split(',')
-
 total = 0
 flame = [1, 1]
 pre_score = 0
@@ -9,14 +7,8 @@ pre_strike = false
 running_strike = false
 strike_spare_flag = 0
 
-# スコアをint型に変換する
-def convert_str2int(score_s)
-  if score_s == 'X'
-    10 # Xを10に置き換える
-  else
-    score_s.to_i
-  end
-end
+score_list = ARGV[0].split(',')
+score_list.map { |score| score == 'X' ? 10 : score.to_i }
 
 # ストライク・スペアの時の加算得点を計算するプログラム
 def cal_addscore(score, flag, running_strike)
