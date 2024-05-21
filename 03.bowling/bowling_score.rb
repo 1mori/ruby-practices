@@ -8,7 +8,7 @@ running_strike = false
 strike_spare_flag = 0
 
 score_list = ARGV[0].split(',')
-score_list.map { |score| score == 'X' ? 10 : score.to_i }
+score_list = score_list.map { |score| score == 'X' ? 10 : score.to_i }
 
 # ストライク・スペアの時の加算得点を計算するプログラム
 def cal_addscore(score, flag, running_strike)
