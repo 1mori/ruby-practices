@@ -32,7 +32,7 @@ score_list.each_with_index do |score, ball_number|
   next if flame[0] == 10
 
   # ストライクだった時の処理
-  if score == 'X'
+  if score == 10
     flame[0] += 1 # フレームを更新
     strike_spare_flag = 2
     running_strike = true if pre_strike
