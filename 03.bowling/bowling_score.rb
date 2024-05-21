@@ -7,7 +7,7 @@ score_list = ARGV[0].split(',')
 score_list = score_list.map { |score| score == 'X' ? 10 : score.to_i }
 
 # ストライク・スペアの時の加算得点を計算するプログラム
-def cal_addscore(flame, score, score_list, ball_number)
+def calculate_add_score(flame, score, score_list, ball_number)
   add_score = 0
   return 0 if flame[0] == 10
 
@@ -19,10 +19,8 @@ end
 
 # 得点加算部分の実装
 score_list.each_with_index do |score, ball_number|
-  # 前フレームがスペアないしストライクかどうかを判定し、いずれかに該当する場合は得点を加算する
-  add_score = cal_addscore(flame, score, score_list, ball_number)
+  add_score = calculate_add_score(flame, score, score_list, ball_number)
 
-  # 得点を合計得点に加算
   total += add_score + score
 
   # 投球数、フレーム数の更新
