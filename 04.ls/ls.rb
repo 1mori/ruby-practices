@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 BLUE = "\e[36m"
 RESET = "\e[0m"
 
@@ -39,7 +40,8 @@ shaped_array = split_array(entries, 3)
 
 shaped_array.each do |array_element|
   array_element.each do |element|
-    print directory?(element).ljust(max_string_length)
+    colored_length = directory?(element).length
+    print directory?(element).ljust(max_string_length + colored_length - element.length)
   end
   print "\n"
 end
