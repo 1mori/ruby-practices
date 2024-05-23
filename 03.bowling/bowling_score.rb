@@ -1,4 +1,5 @@
-#!/usr/bin/env ruby # rubocop:disable Style/FrozenStringLiteralComment
+#!/usr/bin/env ruby
+# frozen_string_literal: true
 
 total = 0
 flame = [1, 1]
