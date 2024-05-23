@@ -9,10 +9,8 @@ score_list = ARGV[0].split(',')
 score_list = score_list.map { |score| score == 'X' ? 10 : score.to_i }
 
 # ストライク・スペアの時の加算得点を計算するプログラム
-def calculate_add_score(frame, throw, score, score_list, ball_number)
+def calculate_add_score(throw, score, score_list, ball_number)
   add_score = 0
-  return add_score if frame == 10
-
   add_score += score_list[ball_number + 1] + score_list[ball_number + 2] if throw == 1 && score == 10 # ストライク判定
   add_score += score_list[ball_number + 1] if throw == 2 && score_list[ball_number - 1] + score == 10 # スペア判定
 
@@ -21,8 +19,11 @@ end
 
 # 得点加算部分の実装
 score_list.each_with_index do |score, ball_number|
-  add_score = calculate_add_score(frame, throw, score, score_list, ball_number)
-
+  add_score = if frame == 10
+                0
+              else
+                calculate_add_score(throw, score, score_list, ball_number)
+              end
   total += add_score + score
 
   # 投球数、フレーム数の更新
