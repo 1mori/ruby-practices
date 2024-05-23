@@ -6,8 +6,13 @@ def except_hidden_file(entries)
   entries.reject { |entry| entry[0] == '.' }
 end
 
-entries = except_hidden_file(entries)
+def sort_entries(entries)
+  entries.sort
+end
 
-entries.sort.each do |entry|
+entries = except_hidden_file(entries)
+entries = sort_entries(entries)
+
+entries.each do |entry|
   puts entry
 end
