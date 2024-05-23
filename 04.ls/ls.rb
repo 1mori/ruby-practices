@@ -2,12 +2,12 @@
 
 entries = Dir.entries('.')
 
-def sort_entries(entries)
-  entries.sort
+def sort_entries(array)
+  array.sort
 end
 
-def except_hidden_file(entries)
-  entries.reject { |entry| entry[0] == '.' }
+def except_hidden_file(array)
+  array.reject { |element| element[0] == '.' }
 end
 
 def split_array(array, max_length)
@@ -24,11 +24,6 @@ end
 entries = sort_entries(entries)
 entries = except_hidden_file(entries)
 shaped_array = split_array(entries, 3)
-
-
-
-
-p shaped_array
 
 entries.each do |entry|
   puts entry
