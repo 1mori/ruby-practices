@@ -39,8 +39,7 @@ shaped_array = split_array(entries, 3)
 
 shaped_array.each do |array_element|
   array_element.each do |element|
-    colored_length = directory?(element).length
-    print directory?(element).ljust(max_string_length + colored_length - element.length)
+    print directory?(element).ljust(max_string_length)
   end
   print "\n"
 end
