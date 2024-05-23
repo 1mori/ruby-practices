@@ -18,13 +18,12 @@ def calculate_add_score(throw, score, score_list, ball_number)
 end
 
 # 得点加算部分の実装
-score_list.each_with_index do |score, ball_number|
+total = score_list.each_with_index.sum do |score, ball_number|
   add_score = if frame == 10
                 0
               else
                 calculate_add_score(throw, score, score_list, ball_number)
               end
-  total += add_score + score
 
   # 投球数、フレーム数の更新
   if frame == 10 # 10フレーム目はそれ以上フレーム数が更新されないので、個別に投球数を進める
@@ -37,6 +36,8 @@ score_list.each_with_index do |score, ball_number|
     frame += 1
     throw = 1
   end
+
+  add_score + score
 end
 
 puts total
