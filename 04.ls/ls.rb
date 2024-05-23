@@ -1,4 +1,6 @@
 # frozen_string_literal: true
+BLUE = "\e[36m"
+RESET = "\e[0m"
 
 entries = Dir.entries('.')
 
@@ -21,12 +23,24 @@ def split_array(array, max_length)
   shaped_array
 end
 
+def directory?(element)
+  if File.directory?(element)
+    "#{BLUE}#{element}#{RESET}"
+  else
+    element
+  end
+end
+
 entries = sort_entries(entries)
 entries = except_hidden_file(entries)
 
 max_string_length = entries.map(&:length).max + 1
 shaped_array = split_array(entries, 3)
 
-entries.each do |entry|
-  puts entry
+shaped_array.each do |array_element|
+  array_element.each do |element|
+    colored_length = directory?(element).length
+    print directory?(element).ljust(max_string_length + colored_length - element.length)
+  end
+  print "\n"
 end
