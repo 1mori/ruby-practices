@@ -24,7 +24,7 @@ end
 entries = sort_entries(entries)
 entries = except_hidden_file(entries)
 
-max_string_length = entries.map(&:length).max
+max_string_length = entries.map(&:length).max + 1
 shaped_array = split_array(entries, 3)
 
 entries.each do |entry|
