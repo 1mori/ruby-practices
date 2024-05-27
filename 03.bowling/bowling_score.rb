@@ -25,13 +25,11 @@ total = score_list.each_with_index.sum do |score, index|
               end
 
   # 投球数、フレーム数の更新
-  if throw == 1 && score == 10
-    frame += 1
-  elsif throw == 1
-    throw = 2
-  else
+  if throw == 1 && score == 10 || throw == 2
     frame += 1
     throw = 1
+  else
+    throw = 2
   end
 
   add_score + score
