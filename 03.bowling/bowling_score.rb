@@ -19,16 +19,14 @@ end
 total = score_list.each_with_index.sum do |score, index|
   score_group = score_list[index, 3]
   add_score = if frame == 10
-                0
+                next score
               else
                 calculate_add_score(throw, score_group)
               end
 
   # 投球数、フレーム数の更新
-  if frame == 10 # 10フレーム目はそれ以上フレーム数が更新されないので、個別に投球数を進める
-    throw += 1
-  elsif throw == 1 && score == 10
-    frame += 1 # ストライク処理
+  if throw == 1 && score == 10
+    frame += 1
   elsif throw == 1
     throw = 2
   else
