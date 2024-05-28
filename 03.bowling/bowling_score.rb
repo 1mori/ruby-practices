@@ -12,7 +12,6 @@ def update_game_state(frame, throw, score_group)
   if throw == 1 && score_group[0] == 10 # ストライク判定
     add_score += score_group[1..2].sum
     frame += 1
-    throw = 1
   elsif throw == 1 && score_group[0..1].sum == 10 # スペア判定
     add_score += score_group[2]
     throw = 2
