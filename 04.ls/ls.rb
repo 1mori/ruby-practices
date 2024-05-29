@@ -24,12 +24,14 @@ end
 entries = entries.sort
 entries = except_hidden_file(entries)
 
-max_string_length = entries.map(&:length).max + 1
+max_string_length = entries.map(&:length).max
 shaped_array = split_array(entries, 3)
 
 shaped_array.each do |array_element|
   array_element.each do |element|
-    print element.ljust(max_string_length)
+    tab_count = ((max_string_length - element.length) / 8.0).ceil + 1 # タブの挿入する回数を計算
+    print element
+    print "\t" * tab_count
   end
   puts
 end
