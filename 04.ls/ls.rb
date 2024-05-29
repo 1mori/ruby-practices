@@ -25,14 +25,6 @@ def split_array(array, max_length)
   shaped_array
 end
 
-def directory?(element)
-  if File.directory?(element)
-    "#{BLUE}#{element}#{RESET}"
-  else
-    element
-  end
-end
-
 entries = sort_entries(entries)
 entries = except_hidden_file(entries)
 
@@ -41,8 +33,7 @@ shaped_array = split_array(entries, 3)
 
 shaped_array.each do |array_element|
   array_element.each do |element|
-    colored_length = directory?(element).length
-    print directory?(element).ljust(max_string_length + colored_length - element.length)
+    print element.ljust(max_string_length)
   end
   puts
 end
