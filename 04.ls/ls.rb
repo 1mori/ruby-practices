@@ -44,5 +44,5 @@ shaped_array.each do |array_element|
     colored_length = directory?(element).length
     print directory?(element).ljust(max_string_length + colored_length - element.length)
   end
-  print "\n"
+  puts
 end
