@@ -6,10 +6,6 @@ RESET = "\e[0m"
 
 entries = Dir.entries('.')
 
-def sort_entries(array)
-  array.sort
-end
-
 def except_hidden_file(array)
   array.reject { |element| element[0] == '.' }
 end
@@ -25,7 +21,7 @@ def split_array(array, max_length)
   shaped_array
 end
 
-entries = sort_entries(entries)
+entries = entries.sort
 entries = except_hidden_file(entries)
 
 max_string_length = entries.map(&:length).max + 1
