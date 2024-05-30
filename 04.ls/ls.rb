@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-BLUE = "\e[36m"
-RESET = "\e[0m"
-
 entries = Dir.entries('.')
 
 def except_hidden_file(array)
