@@ -19,8 +19,12 @@ total = score_list.each_with_index.sum do |score, index|
     add_score += score_group[2]
     throw = 2
   else
-    frame += 1 if throw == 2
-    throw = (throw == 2 ? 1 : 2)
+    if throw == 2
+      frame += 1
+      throw = 1
+    else
+      throw = 2
+    end
   end
 
   add_score + score
