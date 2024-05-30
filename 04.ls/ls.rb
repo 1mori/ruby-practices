@@ -1,6 +1,9 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+TAB_SPACE = 8
+TAB_SPACE.freeze
+
 entries = Dir.entries('.')
 
 def except_hidden_file(array)
@@ -26,7 +29,7 @@ shaped_array = split_array(entries, 3)
 
 shaped_array.each do |array_element|
   array_element.each do |element|
-    tab_count = ((max_string_length - element.length) / 8.0).ceil + 1 # タブの挿入する回数を計算
+    tab_count = ((max_string_length - element.length) / TAB_SPACE.to_f).ceil + 1 # タブの挿入する回数を計算
     print element
     print "\t" * tab_count
   end
