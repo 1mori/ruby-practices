@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
+MAX_CHUNK = 3
 TAB_SPACE = 8
 
 entries = Dir.entries('.')
