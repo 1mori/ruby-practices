@@ -10,7 +10,7 @@ def except_hidden_file(file_paths)
   file_paths.reject { |element| element[0] == '.' }
 end
 
-def shaped_file_paths(file_paths)
+def chunk_file_paths(file_paths)
   return [] if file_paths.empty?
 
   num_rows = (file_paths.size.to_f / MAX_CHUNK).ceil
@@ -23,7 +23,7 @@ end
 file_paths = file_paths.sort
 file_paths = except_hidden_file(file_paths)
 
-shaped_file_paths_array = shaped_file_paths(file_paths)
+shaped_file_paths_array = chunk_file_paths(file_paths)
 max_string_length = file_paths.map(&:length).max
 
 shaped_file_paths_array.each do |array_element|
