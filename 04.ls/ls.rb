@@ -2,7 +2,6 @@
 # frozen_string_literal: true
 
 TAB_SPACE = 8
-TAB_SPACE.freeze
 
 entries = Dir.entries('.')
 
