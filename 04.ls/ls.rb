@@ -6,8 +6,8 @@ TAB_SPACE.freeze
 
 entries = Dir.entries('.')
 
-def except_hidden_file(array)
-  array.reject { |element| element[0] == '.' }
+def except_hidden_file(file_paths)
+  file_paths.reject { |element| element[0] == '.' }
 end
 
 def split_array(array, max_length)
