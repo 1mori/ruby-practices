@@ -4,7 +4,7 @@
 MAX_CHUNK = 3
 TAB_SPACE = 8
 
-entries = Dir.entries('.')
+file_paths = Dir.entries('.')
 
 def except_hidden_file(file_paths)
   file_paths.reject { |element| element[0] == '.' }
@@ -20,13 +20,13 @@ def shaped_file_paths(file_paths)
   padded_slices.transpose.map(&:compact)
 end
 
-entries = entries.sort
-entries = except_hidden_file(entries)
+file_paths = file_paths.sort
+file_paths = except_hidden_file(file_paths)
 
-shaped_array = shaped_file_paths(entries)
-max_string_length = entries.map(&:length).max
+shaped_file_paths_array = shaped_file_paths(file_paths)
+max_string_length = file_paths.map(&:length).max
 
-shaped_array.each do |array_element|
+shaped_file_paths_array.each do |array_element|
   array_element.each do |element|
     tab_count = ((max_string_length - element.length) / TAB_SPACE.to_f).ceil + 1 # タブの挿入する回数を計算
     print element
