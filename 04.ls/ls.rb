@@ -10,12 +10,13 @@ def except_hidden_file(file_paths)
   file_paths.reject { |element| element[0] == '.' }
 end
 
-def chunk_file_paths(file_paths)
+def chunk_file_paths(file_paths, num_rows)
   return [] if file_paths.empty?
 
-  num_rows = (file_paths.size.to_f / MAX_CHUNK).ceil
-  sliced_paths = file_paths.each_slice(num_rows).to_a
+  file_paths.each_slice(num_rows).to_a
+end
 
+def pad_and_transpose_chunks(sliced_paths, num_rows)
   padded_slices = sliced_paths.map { |slice| slice + [nil] * (num_rows - slice.length) }
   padded_slices.transpose.map(&:compact)
 end
@@ -23,7 +24,10 @@ end
 file_paths = file_paths.sort
 file_paths = except_hidden_file(file_paths)
 
-shaped_file_paths_array = chunk_file_paths(file_paths)
+num_rows = (file_paths.size.to_f / MAX_CHUNK).ceil
+sliced_paths = chunk_file_paths(file_paths, num_rows)
+shaped_file_paths_array = pad_and_transpose_chunks(sliced_paths, num_rows)
+
 max_string_length = file_paths.map(&:length).max
 
 shaped_file_paths_array.each do |array_element|
