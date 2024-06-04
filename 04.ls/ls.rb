@@ -16,7 +16,7 @@ def chunk_file_paths(file_paths, num_rows)
   file_paths.each_slice(num_rows).to_a
 end
 
-def pad_and_transpose_chunks(sliced_paths, num_rows)
+def transpose_chunks(sliced_paths, num_rows)
   padded_slices = sliced_paths.map { |slice| slice + [nil] * (num_rows - slice.length) }
   padded_slices.transpose.map(&:compact)
 end
