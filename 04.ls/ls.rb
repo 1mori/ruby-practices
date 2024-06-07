@@ -10,7 +10,6 @@ file_paths = Dir.entries('.')
 
 opt = OptionParser.new
 params = opt.getopts(ARGV, 'a')
-p params['a']
 
 def except_hidden_file(file_paths)
   file_paths.reject { |element| element[0] == '.' }
