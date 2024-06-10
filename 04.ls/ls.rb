@@ -27,7 +27,7 @@ def transpose_chunks(sliced_paths, num_rows)
 end
 
 file_paths = file_paths.sort
-file_paths = except_hidden_file(file_paths) if params['a'] == false
+file_paths = except_hidden_file(file_paths) unless params['a']
 
 num_rows = (file_paths.size.to_f / MAX_CHUNK).ceil
 sliced_paths = chunk_file_paths(file_paths, num_rows)
