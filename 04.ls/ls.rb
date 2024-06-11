@@ -11,6 +11,9 @@ file_paths = Dir.entries('.')
 opt = OptionParser.new
 params = opt.getopts(ARGV, 'a')
 
+opt = OptionParser.new
+params = opt.getopts(ARGV, 'r')
+
 def except_hidden_file(file_paths)
   file_paths.reject { |element| element[0] == '.' }
 end
@@ -26,7 +29,7 @@ def transpose_chunks(sliced_paths, num_rows)
   padded_slices.transpose.map(&:compact)
 end
 
-file_paths = file_paths.sort
+file_paths = params['r'] ? file_paths.sort.reverse : file_paths.sort
 file_paths = except_hidden_file(file_paths) unless params['a']
 
 num_rows = (file_paths.size.to_f / MAX_CHUNK).ceil
