@@ -6,7 +6,7 @@ require 'optparse'
 MAX_CHUNK = 3
 TAB_SPACE = 8
 
-file_paths = Dir.entries('.')
+file_paths = Dir.entries('.').sort
 
 opt = OptionParser.new
 options = opt.getopts(ARGV, 'r')
@@ -27,7 +27,7 @@ def transpose_chunks(sliced_paths, num_rows)
   padded_slices.transpose.map(&:compact)
 end
 
-file_paths = options['r'] ? file_paths.sort.reverse : file_paths.sort
+file_paths = file_paths.reverse if options['r']
 file_paths = except_hidden_file(file_paths) unless options['a']
 
 num_rows = (file_paths.size.to_f / MAX_CHUNK).ceil
