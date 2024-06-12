@@ -9,8 +9,8 @@ TAB_SPACE = 8
 file_paths = Dir.entries('.')
 
 opt = OptionParser.new
-params = opt.getopts(ARGV, 'a')
-params = opt.getopts(ARGV, 'r')
+options = opt.getopts(ARGV, 'r')
+options = opt.getopts(ARGV, 'a')
 
 def except_hidden_file(file_paths)
   file_paths.reject { |element| element[0] == '.' }
@@ -27,8 +27,8 @@ def transpose_chunks(sliced_paths, num_rows)
   padded_slices.transpose.map(&:compact)
 end
 
-file_paths = params['r'] ? file_paths.sort.reverse : file_paths.sort
-file_paths = except_hidden_file(file_paths) unless params['a']
+file_paths = options['r'] ? file_paths.sort.reverse : file_paths.sort
+file_paths = except_hidden_file(file_paths) unless options['a']
 
 num_rows = (file_paths.size.to_f / MAX_CHUNK).ceil
 sliced_paths = chunk_file_paths(file_paths, num_rows)
