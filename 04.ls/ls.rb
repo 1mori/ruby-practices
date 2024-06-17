@@ -110,10 +110,9 @@ if options['l']
       file_mode[:file_mode],
       file_mode[:nlink].rjust(max_string_modes[:nlink]),
       file_mode[:uid].ljust(max_string_modes[:uid]),
-      '',
-      file_mode[:gid].ljust(max_string_modes[:gid]),
-      file_mode[:size].rjust(max_string_modes[:size]),
-      file_mode[:mtime].ljust(max_string_modes[:mtime]),
+      file_mode[:gid].rjust(max_string_modes[:gid] + 1),
+      file_mode[:size].rjust(max_string_modes[:size] + 1),
+      file_mode[:mtime].rjust(max_string_modes[:mtime] + 1),
       file_mode[:file_path]
     ].join(' ')
     puts file_mode_print
