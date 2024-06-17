@@ -104,17 +104,19 @@ if options['l']
 
   puts "total #{total_blocks}"
 
-  file_paths.each do |file_path|
-    file_stat = File.lstat(file_path)
-    file_mode = convert_file_mode(file_stat)
-    nlink = file_stat.nlink
-    uid = Etc.getpwuid(file_stat.uid).name
-    gid = Etc.getgrgid(file_stat.gid).name
-    size = file_stat.size
-    mtime = file_stat.mtime.strftime('%-m %d %H:%M')
-
-    puts "#{file_mode}\t#{nlink}\t#{uid}\t#{gid}\t#{size}\t#{mtime}\t#{file_path}"
   max_string_modes = calclate_max_string_modes(file_modes)
+  file_modes.each do |file_mode|
+    file_mode_print = [
+      file_mode[:file_mode],
+      file_mode[:nlink].rjust(max_string_modes[:nlink]),
+      file_mode[:uid].ljust(max_string_modes[:uid]),
+      '',
+      file_mode[:gid].ljust(max_string_modes[:gid]),
+      file_mode[:size].rjust(max_string_modes[:size]),
+      file_mode[:mtime].ljust(max_string_modes[:mtime]),
+      file_mode[:file_path]
+    ].join(' ')
+    puts file_mode_print
   end
 else
   num_rows = (file_paths.size.to_f / MAX_CHUNK).ceil
