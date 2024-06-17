@@ -51,7 +51,10 @@ options = opt.getopts(ARGV, 'l')
 file_paths = except_hidden_file(file_paths)
 
 if options['l']
-  p 'l'
+  file_paths.each do |file_path|
+    file_stat = File.lstat(file_path)
+    file_mode_octal = file_stat.mode.to_s(8).rjust(6, '0')
+  end
 else
   num_rows = (file_paths.size.to_f / MAX_CHUNK).ceil
   sliced_paths = chunk_file_paths(file_paths, num_rows)
