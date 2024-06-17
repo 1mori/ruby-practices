@@ -81,6 +81,16 @@ def format_file_mode(file_path)
   }
 end
 
+def calclate_max_string_modes(file_modes)
+  {
+    nlink: file_modes.map { |file_mode| file_mode[:nlink].size }.max,
+    uid: file_modes.map { |file_mode| file_mode[:uid].size }.max,
+    gid: file_modes.map { |file_mode| file_mode[:gid].size }.max,
+    size: file_modes.map { |file_mode| file_mode[:size].size }.max,
+    mtime: file_modes.map { |file_mode| file_mode[:mtime].size }.max
+  }
+end
+
 file_paths = Dir.entries('.').sort
 
 opt = OptionParser.new
@@ -104,6 +114,7 @@ if options['l']
     mtime = file_stat.mtime.strftime('%-m %d %H:%M')
 
     puts "#{file_mode}\t#{nlink}\t#{uid}\t#{gid}\t#{size}\t#{mtime}\t#{file_path}"
+  max_string_modes = calclate_max_string_modes(file_modes)
   end
 else
   num_rows = (file_paths.size.to_f / MAX_CHUNK).ceil
