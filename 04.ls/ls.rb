@@ -9,7 +9,7 @@ TAB_SPACE = 8
 file_paths = Dir.entries('.').sort
 
 opt = OptionParser.new
-params = opt.getopts(ARGV, 'l')
+options = opt.getopts(ARGV, 'l')
 
 def except_hidden_file(file_paths)
   file_paths.reject { |element| element[0] == '.' }
