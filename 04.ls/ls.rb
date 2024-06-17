@@ -67,6 +67,19 @@ def apply_special_modes(special_modes, permissions)
   permissions
 end
 
+def format_file_mode(file_path)
+  file_stat = File.lstat(file_path)
+  {
+    file_mode: convert_file_mode(file_stat),
+    nlink: file_stat.nlink,
+    uid: Etc.getpwuid(file_stat.uid).name,
+    gid: Etc.getgrgid(file_stat.gid).name,
+    size: file_stat.size,
+    mtime: file_stat.mtime.strftime('%-m %d %H:%M'),
+    blocks: file_stat.blocks
+  }
+end
+
 file_paths = Dir.entries('.').sort
 
 opt = OptionParser.new
@@ -75,7 +88,9 @@ options = opt.getopts(ARGV, 'l')
 file_paths = except_hidden_file(file_paths)
 
 if options['l']
-  total_blocks = file_paths.sum { |file_path| File.lstat(file_path).blocks }
+  file_modes = file_paths.map { |file_path| format_file_mode(file_path) }
+  total_blocks = file_modes.map { |file_mode| file_mode[:blocks] }.sum
+
   puts "total #{total_blocks}"
 
   file_paths.each do |file_path|
