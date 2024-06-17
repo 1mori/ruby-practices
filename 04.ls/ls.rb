@@ -6,6 +6,27 @@ require 'optparse'
 MAX_CHUNK = 3
 TAB_SPACE = 8
 
+FILE_TYPE = {
+  'fifo' => 'p',
+  'characterSpecial' => 'c',
+  'directory' => 'd',
+  'blockSpecial' => 'b',
+  'file' => 'f',
+  'link' => 'l',
+  'socket' => 's'
+}.freeze
+
+FILE_MODE = {
+  '0' => '---',
+  '1' => '--x',
+  '2' => '-w-',
+  '3' => '-wx',
+  '4' => 'r--',
+  '5' => 'r-x',
+  '6' => 'rw-',
+  '7' => 'rwx'
+}.freeze
+
 def except_hidden_file(file_paths)
   file_paths.reject { |element| element[0] == '.' }
 end
