@@ -6,11 +6,6 @@ require 'optparse'
 MAX_CHUNK = 3
 TAB_SPACE = 8
 
-file_paths = Dir.entries('.').sort
-
-opt = OptionParser.new
-options = opt.getopts(ARGV, 'l')
-
 def except_hidden_file(file_paths)
   file_paths.reject { |element| element[0] == '.' }
 end
@@ -25,6 +20,11 @@ def transpose_chunks(sliced_paths, num_rows)
   padded_slices = sliced_paths.map { |slice| slice + [nil] * (num_rows - slice.length) }
   padded_slices.transpose.map(&:compact)
 end
+
+file_paths = Dir.entries('.').sort
+
+opt = OptionParser.new
+options = opt.getopts(ARGV, 'l')
 
 file_paths = except_hidden_file(file_paths)
 
