@@ -76,7 +76,7 @@ def format_file_mode(file_path)
     gid: Etc.getgrgid(file_stat.gid).name,
     size: file_stat.size.to_s,
     mtime: file_stat.mtime.strftime('%-m %d %H:%M'),
-    file_path: file_path,
+    file_path:,
     blocks: file_stat.blocks
   }
 end
