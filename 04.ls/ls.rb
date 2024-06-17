@@ -2,6 +2,7 @@
 # frozen_string_literal: true
 
 require 'optparse'
+require 'etc'
 
 MAX_CHUNK = 3
 TAB_SPACE = 8
