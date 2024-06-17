@@ -54,6 +54,13 @@ if options['l']
   file_paths.each do |file_path|
     file_stat = File.lstat(file_path)
     file_mode_octal = file_stat.mode.to_s(8).rjust(6, '0')
+    nlink = file_stat.nlink
+    uid = Etc.getpwuid(file_stat.uid).name
+    gid = Etc.getgrgid(file_stat.gid).name
+    size = file_stat.size
+    mtime = file_stat.mtime.strftime('%-m %d %H:%M')
+
+    puts "#{file_mode}\t#{nlink}\t#{uid}\t#{gid}\t#{size}\t#{mtime}\t#{file_path}"
   end
 else
   num_rows = (file_paths.size.to_f / MAX_CHUNK).ceil
