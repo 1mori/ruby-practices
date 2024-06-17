@@ -58,6 +58,9 @@ options = opt.getopts(ARGV, 'l')
 file_paths = except_hidden_file(file_paths)
 
 if options['l']
+  total_blocks = file_paths.sum { |file_path| File.lstat(file_path).blocks }
+  puts "total #{total_blocks}"
+
   file_paths.each do |file_path|
     file_stat = File.lstat(file_path)
     file_mode = convert_file_mode(file_stat)
