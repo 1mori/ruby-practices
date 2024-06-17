@@ -28,6 +28,12 @@ FILE_MODE = {
   '7' => 'rwx'
 }.freeze
 
+SPECIAL_MODE = [
+  { bit: '4', index: 2, exec: 's', no_exec: 'S' },
+  { bit: '2', index: 5, exec: 's', no_exec: 'S' },
+  { bit: '1', index: 8, exec: 't', no_exec: 'T' }
+].freeze
+
 def except_hidden_file(file_paths)
   file_paths.reject { |element| element[0] == '.' }
 end
@@ -47,7 +53,18 @@ def convert_file_mode(file_stat)
   file_mode_octal = file_stat.mode.to_s(8).rjust(6, '0')
   file_mode = FILE_TYPE[file_stat.ftype].to_s
   file_permissions = file_mode_octal.slice(3..-1).chars.map { |char| FILE_MODE[char] }.join
+  # 特殊権限の確認
+  file_permissions = apply_special_modes(file_mode_octal[2], file_permissions) if file_mode_octal[2] != '0'
   file_mode + file_permissions
+end
+
+def apply_special_modes(special_modes, permissions)
+  SPECIAL_MODE.each do |mode|
+    if special_modes == mode[:bit]
+      permissions[mode[:index]] == 'x' ? mode[:exec] : mode[:no_exec]
+    end
+  end
+  permissions
 end
 
 file_paths = Dir.entries('.').sort
