@@ -12,7 +12,7 @@ FILE_TYPE = {
   'characterSpecial' => 'c',
   'directory' => 'd',
   'blockSpecial' => 'b',
-  'file' => 'f',
+  'file' => '-',
   'link' => 'l',
   'socket' => 's'
 }.freeze
