@@ -53,7 +53,8 @@ def convert_file_mode(file_stat)
   file_mode_octal = file_stat.mode.to_s(8).rjust(6, '0')
   file_mode = FILE_TYPE[file_stat.ftype].to_s
   file_permissions = file_mode_octal.slice(3..-1).chars.map { |char| FILE_MODE[char] }.join
-  # 特殊権限の確認
+  # 特殊権限の確認　特殊権限は8進数に変換されたファイルモードの3文字目に記載されている　そのためfile_mode_octal[2]を参照する
+  # 0は特殊権限なし、なので最初に弾く（apply_special_modesは1か2か4であるかを判別し、当てはめるため）
   file_permissions = apply_special_modes(file_mode_octal[2], file_permissions) if file_mode_octal[2] != '0'
   file_mode + file_permissions
 end
