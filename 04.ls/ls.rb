@@ -29,9 +29,9 @@ FILE_MODE = {
 }.freeze
 
 SPECIAL_MODE = [
-  { bit: '4', index: 2, exec: 's', no_exec: 'S' },
-  { bit: '2', index: 5, exec: 's', no_exec: 'S' },
-  { bit: '1', index: 8, exec: 't', no_exec: 'T' }
+  { bit: 4, index: 2, exec: 's', no_exec: 'S' },
+  { bit: 2, index: 5, exec: 's', no_exec: 'S' },
+  { bit: 1, index: 8, exec: 't', no_exec: 'T' }
 ].freeze
 
 def except_hidden_file(file_paths)
@@ -54,17 +54,18 @@ def convert_file_mode(file_stat)
   file_mode = FILE_TYPE[file_stat.ftype].to_s
   file_permissions = file_mode_octal.slice(3..-1).chars.map { |char| FILE_MODE[char] }.join
   # 特殊権限の確認　特殊権限は8進数に変換されたファイルモードの3文字目に記載されている　そのためfile_mode_octal[2]を参照する
-  file_permissions = apply_special_modes(file_mode_octal[2], file_permissions)
+  file_permissions = apply_special_modes(file_mode_octal[2].to_i, file_permissions)
   file_mode + file_permissions
 end
 
 def apply_special_modes(special_modes, permissions)
   # 0は特殊権限なし、なので最初に弾く（特殊権限は1か2か4であるため）
-  return permissions if special_modes == '0'
+  return permissions if special_modes.zero?
 
   SPECIAL_MODE.each do |mode|
-    next unless special_modes == mode[:bit]
+    next unless special_modes >= mode[:bit]
 
+    special_modes -= mode[:bit]
     permissions[mode[:index]] = if permissions[mode[:index]] == 'x'
                                   mode[:exec]
                                 else
