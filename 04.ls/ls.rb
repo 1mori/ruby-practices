@@ -63,9 +63,8 @@ def apply_special_modes(special_modes, permissions)
   return permissions if special_modes.zero?
 
   SPECIAL_MODE.each do |mode|
-    next unless special_modes >= mode[:bit]
+    next unless (special_modes & mode[:bit]).positive?
 
-    special_modes -= mode[:bit]
     permissions[mode[:index]] = if permissions[mode[:index]] == 'x'
                                   mode[:exec]
                                 else
