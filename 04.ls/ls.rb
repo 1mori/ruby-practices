@@ -10,8 +10,6 @@ file_paths = Dir.entries('.')
 
 opt = OptionParser.new
 params = opt.getopts(ARGV, 'a')
-
-opt = OptionParser.new
 params = opt.getopts(ARGV, 'r')
 
 def except_hidden_file(file_paths)
