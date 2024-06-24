@@ -101,7 +101,7 @@ end
 file_paths = Dir.entries('.').sort
 
 opt = OptionParser.new
-options = opt.getopts(ARGV, 'r', 'a', 'l')
+options = opt.getopts(ARGV, 'arl')
 
 file_paths = file_paths.reverse if options['r']
 file_paths = except_hidden_file(file_paths) unless options['a']
